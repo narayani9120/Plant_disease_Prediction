@@ -1,38 +1,42 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import UploadImage from "./UploadImage";
+import Chatbot from "./Chatbot";
 
 function LandingPage() {
   return (
     <>
-    <div className="landing-wrapper">
-      <header className="container_header">
-        <nav className="container_list">
-          <ul className="container_list_item">
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About Us</Link>
-            </li>
-            <li>
-              <Link to="/profile">Profile</Link>
-            </li>
-          </ul>
-        </nav>
-      </header>
+      <div className="landing-wrapper">
+        <header className="container_header">
+          <nav className="container_list">
+            <ul className="container_list_item">
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li>
+                <Link to="/about">About Us</Link>
+              </li>
+              <li>
+                <Link to="/profile">Profile</Link>
+              </li>
+              <li>
+                <Link to="/chatbot">ChatBot</Link>
+              </li>
+            </ul>
+          </nav>
+        </header>
 
-      <div className="container_page">
-        <div className="landing-image"></div>
+        <div className="container_page">
+          <div className="landing-image"></div>
 
-        <div className="landing-text">
-          <h1>
-            Smart <strong>Farming</strong> is Caring
-          </h1>
+          <div className="landing-text">
+            <h1>
+              Smart <strong>Farming</strong> is Caring
+            </h1>
+          </div>
         </div>
       </div>
-    </div>
-    <UploadImage/>
+      <UploadImage />
     </>
   );
 }
