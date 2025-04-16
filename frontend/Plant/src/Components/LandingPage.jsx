@@ -22,6 +22,9 @@ function LandingPage() {
               <li>
                 <Link to="/chatbot">ChatBot</Link>
               </li>
+              <li>
+                <Link to="/login">Login</Link>
+              </li>
             </ul>
           </nav>
         </header>

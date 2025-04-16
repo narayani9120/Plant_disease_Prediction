@@ -39,21 +39,31 @@ const Chatbot = () => {
   // ✅ Send message to backend
   const sendMessage = async () => {
     if (!message.trim()) return;
-    try {
-      const res = await axios.post("http://localhost:5000/api/chat", {
-        session_id: sessionId,
-        message,
-      });
 
-      // Update chat history locally
+    const token = localStorage.getItem("token"); // Get token from localStorage
+
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/chat",
+        {
+          session_id: sessionId,
+          message,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       setChatHistory((prev) => [
         ...prev,
         { sender: "You", message },
         { sender: "Bot", message: res.data.response },
       ]);
 
-      setMessage(""); // Clear input
-      setChatResponse(""); // No need for separate response state anymore
+      setMessage("");
+      setChatResponse("");
     } catch (error) {
       console.error("Chat API error:", error);
       setChatHistory((prev) => [
