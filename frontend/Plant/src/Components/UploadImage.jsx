@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./style.css";
 
-const UploadImage = () => {
+function UploadImage() {
   const [file, setFile] = useState(null);
   const [previewUrl, setPreviewUrl] = useState(null);
   const [result, setResult] = useState(null);
@@ -9,25 +10,18 @@ const UploadImage = () => {
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
     setFile(selectedFile);
-    if (selectedFile) {
-      setPreviewUrl(URL.createObjectURL(selectedFile));
-    }
+    if (selectedFile) setPreviewUrl(URL.createObjectURL(selectedFile));
   };
 
   const handleSubmit = async () => {
-    if (!file) {
-      alert("Please select an image first!");
-      return;
-    }
-
+    if (!file) return alert("Please select an image first!");
     const formData = new FormData();
     formData.append("file", file);
 
     try {
-      const res = await axios.post(
-        "http://127.0.0.1:5000/api/predict",
-        formData
-      );
+      const res = await axios.post("http://127.0.0.1:5000/api/leaf-predict", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       setResult(res.data);
     } catch (err) {
       console.error(err);
@@ -36,39 +30,30 @@ const UploadImage = () => {
   };
 
   return (
-    <div className="container_upload">
-    
-      <img src="/image.jpg" alt="Uploaded preview"></img>
+    <div className="prediction-container">
+      <h2>Leaf Disease Detection</h2>
       <input type="file" onChange={handleFileChange} />
+      <button onClick={handleSubmit}>Upload & Predict</button>
 
       {previewUrl && (
-        <div className="container_uploadImage">
-          <img src={previewUrl} alt="Uploaded preview" width="300" />
+        <div className="prediction-image-preview">
+          <img src={previewUrl} alt="Preview" />
         </div>
       )}
 
-      <div className="container_uploadbutton">
-        <button onClick={handleSubmit}>Upload the Image</button>
-      </div>
-
       {result && (
-        <div className="result-container">
-          <h3>Prediction: {result.prediction}</h3>
-          <p>
-            <strong>Description:</strong> {result.description}
-          </p>
-          <p>
-            <strong>Remedy:</strong> {result.remedy}
-          </p>
+        <div className="prediction-result-box">
+          <h3>Disease: {result.prediction}</h3>
+          <p><strong>Remedy:</strong> {result.remedy}</p>
           <img
             src={`http://127.0.0.1:5000${result.imageUrl}`}
-            alt="Predicted"
-            width="300"
+            alt="Result"
+            className="result-image"
           />
         </div>
       )}
     </div>
   );
-};
+}
 
 export default UploadImage;
