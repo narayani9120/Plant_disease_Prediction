@@ -1,0 +1,96 @@
+/* Background image and centering */
+.login_container {
+    background-image: url("https://images.pexels.com/photos/1470171/pexels-photo-1470171.jpeg?cs=srgb&dl=pexels-element5-1470171.jpg&fm=jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Glassmorphism box */
+  .box.login-box {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+    padding: 40px 30px;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    color: #0e0c0c;
+    animation: fadeIn 0.8s ease-in-out;
+  }
+  
+  /* Heading */
+  h2 {
+    text-align: center;
+    color: #121010;
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  
+  /* Inputs */
+  input {
+    margin: 12px 0;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    outline: none;
+    font-size: 14px;
+  }
+  
+  /* Primary button */
+  .primary-btn {
+    background-color: #27ae60;
+    color: rgb(12, 11, 11);
+    border: none;
+    padding: 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    margin-top: 15px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+  }
+  
+  .primary-btn:hover {
+    background-color: #2ecc71;
+  }
+  
+  /* Link text */
+  .redirect-text {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #080404;
+    text-align: center;
+  }
+  
+  .redirect-text a {
+    color: #ffdd57;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .redirect-text a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Animation */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(-15px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+
+
+  /* Sign_up------------------------------------------------------------------------------------------------------------------ */

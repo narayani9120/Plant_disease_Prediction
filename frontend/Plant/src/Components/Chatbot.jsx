@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const Chatbot = () => {
   const [message, setMessage] = useState("");
@@ -8,11 +9,23 @@ const Chatbot = () => {
   const [chatHistory, setChatHistory] = useState([]);
 
   // ✅ Initialize session ID once
+  // useEffect(() => {
+  //   const id = localStorage.getItem("session_id") || crypto.randomUUID();
+  //   localStorage.setItem("session_id", id);
+  //   setSessionId(id);
+  // }, []);
+
   useEffect(() => {
-    const id = localStorage.getItem("session_id") || crypto.randomUUID();
-    localStorage.setItem("session_id", id);
+    let id = localStorage.getItem("session_id");
+  
+    if (!id) {
+      id = uuidv4();
+      localStorage.setItem("session_id", id);
+    }
+  
     setSessionId(id);
   }, []);
+  
 
   // ✅ Load chat history after session ID is set
   useEffect(() => {
@@ -39,21 +52,31 @@ const Chatbot = () => {
   // ✅ Send message to backend
   const sendMessage = async () => {
     if (!message.trim()) return;
-    try {
-      const res = await axios.post("http://localhost:5000/api/chat", {
-        session_id: sessionId,
-        message,
-      });
 
-      // Update chat history locally
+    const token = localStorage.getItem("token"); // Get token from localStorage
+
+    try {
+      const res = await axios.post(
+        "http://localhost:5000/api/chat",
+        {
+          session_id: sessionId,
+          message,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
       setChatHistory((prev) => [
         ...prev,
         { sender: "You", message },
         { sender: "Bot", message: res.data.response },
       ]);
 
-      setMessage(""); // Clear input
-      setChatResponse(""); // No need for separate response state anymore
+      setMessage("");
+      setChatResponse("");
     } catch (error) {
       console.error("Chat API error:", error);
       setChatHistory((prev) => [
