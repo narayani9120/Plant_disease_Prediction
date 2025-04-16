@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const Chatbot = () => {
   const [message, setMessage] = useState("");
@@ -8,11 +9,23 @@ const Chatbot = () => {
   const [chatHistory, setChatHistory] = useState([]);
 
   // ✅ Initialize session ID once
+  // useEffect(() => {
+  //   const id = localStorage.getItem("session_id") || crypto.randomUUID();
+  //   localStorage.setItem("session_id", id);
+  //   setSessionId(id);
+  // }, []);
+
   useEffect(() => {
-    const id = localStorage.getItem("session_id") || crypto.randomUUID();
-    localStorage.setItem("session_id", id);
+    let id = localStorage.getItem("session_id");
+  
+    if (!id) {
+      id = uuidv4();
+      localStorage.setItem("session_id", id);
+    }
+  
     setSessionId(id);
   }, []);
+  
 
   // ✅ Load chat history after session ID is set
   useEffect(() => {

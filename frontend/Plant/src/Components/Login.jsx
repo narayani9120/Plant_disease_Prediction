@@ -25,8 +25,10 @@ const Login = () => {
 
       if (response.ok) {
         setMessage(data.msg);
-        localStorage.setItem("token", data.access_token); // store the token
-        navigate("/")
+        localStorage.setItem("token", data.access_token);
+        localStorage.removeItem("session_id");
+        // store the token
+        navigate("/");
       } else {
         setMessage(data.msg || "Login failed");
       }
@@ -40,27 +42,27 @@ const Login = () => {
     <div className="login_container">
       <div className="box login-box">
         <h2>Login</h2>
-         
 
         <div className="input-with-icon">
-  <FontAwesomeIcon icon={faUser} className="input-icon" />
-  <input type="text" placeholder="Username" 
-         value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          <FontAwesomeIcon icon={faUser} className="input-icon" />
+          <input
+            type="text"
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
           />
+        </div>
 
-</div>
-
-<div className="input-with-icon">
-  <FontAwesomeIcon icon={faLock} className="input-icon" />
-  <input type="password" placeholder="Password"
-  value={password}
-          onChange={(e) => setPassword(e.target.value)}
+        <div className="input-with-icon">
+          <FontAwesomeIcon icon={faLock} className="input-icon" />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
-</div>
+        </div>
 
-        
-        
         <button className="primary-btn" onClick={handleLogin}>
           Login
         </button>
