@@ -9,6 +9,7 @@ import ProfilePage from './Components/ProfilePage'
 import Chatbot from './Components/Chatbot'
 import Login from './Components/Login'
 import Signup from './Components/Signup'
+import UploadImage from './Components/UploadImage'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -22,6 +23,7 @@ function App() {
       <Route path="/chatbot" element={<Chatbot/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/signup' element={<Signup/>}/>
+      <Route path='/upload' element={<UploadImage/>}/>
     </Routes>
     </>
   )
